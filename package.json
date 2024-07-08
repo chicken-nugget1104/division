@@ -7,7 +7,9 @@
     "start": "netlify dev"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.44.3"
+    "@supabase/supabase-js": "^2.44.3",
+    "crypto": "^1.0.1",
+    "netlify-lambda": "^2.0.0"
   },
   "devDependencies": {
     "netlify-cli": "^17.33.0"

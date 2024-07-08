@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account</title>
+</head>
+<body>
+  <h1>Create Account</h1>
+  <form id="create-account-form">
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <input type="email" id="email" placeholder="Email (optional)">
+    <button type="submit">Create Account</button>
+  </form>
+  <div id="message"></div>
+
+  <script>
+    document.getElementById('create-account-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const email = document.getElementById('email').value;
+
+      const response = await fetch('/.netlify/functions/create-account', {
+        method: 'POST',
+        body: JSON.stringify({ username, password, email }),
+      });
+
+      const result = await response.json();
+      document.getElementById('message').innerText = result.error ? result.error : 'Account created and logged in successfully!';
+    });
+  </script>
+</body>
+</html>
