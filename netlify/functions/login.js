@@ -17,13 +17,12 @@ exports.handler = async function(event, context) {
     const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
     console.log('Hashed Password:', hashedPassword);
 
-    const { data, error } = await supabase
+    const { data: userData, error } = await supabase
       .from('users')
       .select('*')
       .eq('username', username)
-      .eq('password', hashedPassword)
       .single();
-      
+
     if (error) {
       console.error('Supabase Error:', error.message);
       return {
@@ -32,12 +31,27 @@ exports.handler = async function(event, context) {
       };
     }
 
-    const currentDate = new Date();
-    let moons = data.moons;
-    let loginStreak = data.login_streak;
+    if (!userData) {
+      return {
+        statusCode: 401,
+        body: JSON.stringify({ error: 'Invalid username or password.' }),
+      };
+    }
 
-    if (data.last_login) {
-      const lastLoginDate = new Date(data.last_login);
+    // Check hashed password
+    if (userData.password !== hashedPassword) {
+      return {
+        statusCode: 401,
+        body: JSON.stringify({ error: 'Invalid username or password.' }),
+      };
+    }
+
+    const currentDate = new Date();
+    let moons = userData.moons;
+    let loginStreak = userData.login_streak;
+
+    if (userData.last_login) {
+      const lastLoginDate = new Date(userData.last_login);
       const diffDays = Math.floor((currentDate - lastLoginDate) / (1000 * 60 * 60 * 24));
 
       if (diffDays === 1) {
@@ -56,7 +70,7 @@ exports.handler = async function(event, context) {
     const { error: updateError } = await supabase
       .from('users')
       .update({ last_login: currentDate, moons, login_streak: loginStreak })
-      .eq('id', data.id);
+      .eq('id', userData.id);
 
     if (updateError) {
       console.error('Update Error:', updateError.message);
@@ -68,7 +82,7 @@ exports.handler = async function(event, context) {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ user: { ...data } }),
+      body: JSON.stringify({ user: { ...userData } }),
     };
   } catch (error) {
     console.error('Catch Error:', error.message);
