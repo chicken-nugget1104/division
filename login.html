@@ -19,8 +19,10 @@
       if (response.ok) {
         // Handle successful login
         console.log('Login successful', data);
-        // Redirect to home page or show a success message
-        localStorage.setItem('username', data.username);
+        localStorage.setItem('username', username);
+        // Redirect to home page
+        localStorage.setItem('username', username);
+        alert(data.username);
         window.location.href = '/home';
       } else {
         // Handle login error
