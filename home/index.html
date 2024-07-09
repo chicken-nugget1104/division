@@ -41,12 +41,12 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        const user = JSON.parse(localStorage.getItem('username'));
+        const username = JSON.parse(localStorage.getItem('username'));
 
-        if (user) {
-          document.getElementById('username').innerText = user.username;
-          document.getElementById('moons').innerText = user.moons;
-          document.getElementById('login-streak').innerText = user.login_streak;
+        if (username) {
+          document.getElementById('username').innerText = username.username;
+          document.getElementById('moons').innerText = username.moons;
+          document.getElementById('login-streak').innerText = username.login_streak;
         } else {
           window.location.href = '/login.html'; // Redirect to login if not logged in
         }
