@@ -1,5 +1,4 @@
 const { createClient } = require('@supabase/supabase-js');
-const crypto = require('crypto');
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
@@ -9,7 +8,6 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 exports.handler = async function(event, context) {
   try {
     const { username, password } = JSON.parse(event.body);
-    const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
 
     // Retrieve all users with the matching username
     const { data: usersData, error } = await supabase
@@ -31,8 +29,8 @@ exports.handler = async function(event, context) {
       };
     }
 
-    // Find the user with the matching password
-    const validUser = usersData.find(user => user.password === hashedPassword);
+    // Find the user with the matching plain text password
+    const validUser = usersData.find(user => user.password === password);
 
     if (!validUser) {
       return {
