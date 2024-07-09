@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- PUBLIC -->
-    <title>Welcome Back to Division!</title>
+    <title>Welcome Back to Divisiontoria!</title>
 
     <!-- RESOURCES -->
     <link rel="stylesheet" href="/assets/style.css" type="text/css">
@@ -41,7 +41,7 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem('username'));
 
         if (user) {
           document.getElementById('username').innerText = user.username;
