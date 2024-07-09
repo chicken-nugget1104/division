@@ -1,0 +1,23 @@
+html, body {
+    overflow-x: hidden;
+}
+
+main#page {
+    padding: 3rem;
+}
+
+.moons {
+    width: 15px;
+    height: 15px;
+}
+
+.tiny {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+
+.headshot {
+    border-radius: 100%;
+    width: 75px;
+    height: 75px;
+}
