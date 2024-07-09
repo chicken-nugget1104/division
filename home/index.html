@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+</head>
+<body>
+  <h1>Home</h1>
+  <div id="user-info">
+    <p>Username: <span id="username"></span></p>
+    <p>Moons: <span id="moons"></span></p>
+    <p>Login Streak: <span id="login-streak"></span></p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = JSON.parse(localStorage.getItem('user'));
+
+      if (user) {
+        document.getElementById('username').innerText = user.username;
+        document.getElementById('moons').innerText = user.moons;
+        document.getElementById('login-streak').innerText = user.login_streak;
+      } else {
+        window.location.href = '/login.html'; // Redirect to login if not logged in
+      }
+    });
+  </script>
+</body>
+</html>
