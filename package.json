@@ -1,7 +1,7 @@
 {
   "name": "division",
   "version": "1.0.0",
-  "description": "Roblox clone with account creation and login",
+  "description": "Roblox clone (divisiontoria)",
   "main": "index.js",
   "scripts": {
     "start": "netlify dev"
