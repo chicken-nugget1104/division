@@ -1,4 +1,4 @@
-name: Update
+name: Update or something
 
 on:
   pull_request:
