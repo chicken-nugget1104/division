@@ -56,6 +56,7 @@ exports.handler = async function(event, context) {
 
       if (loginStreak >= 5) {
         moons += 5;
+        loginStreak = 0;
       }
     } else {
       loginStreak = 1;
